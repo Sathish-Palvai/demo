@@ -1,4 +1,4 @@
-package com.palvai.arrays;
+package com.palvai.arays;
 
 import java.util.ArrayList;
 import java.util.Collections;

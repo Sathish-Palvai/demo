@@ -1,4 +1,4 @@
-package com.palvai.arrays;
+package com.palvai.arays;
 
 public class Interval {
 
