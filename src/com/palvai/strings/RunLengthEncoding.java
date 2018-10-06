@@ -38,4 +38,20 @@ public class RunLengthEncoding {
     return encodedString.toString();
   }
  
+ public static String decode(String source) {
+  StringBuffer finalString = new StringBuffer();
+  Pattern pattern = Pattern.compule("[0-9]+|[a-zA-Z]");
+  Matcher matcher = pattern.matcher(source);
+  while(matcher.find()) {
+   int num = Integer.parseInt(matcher.group());
+   matcher.find();
+   while(num-- != 0) {
+    finalString.append(matcher.group());
+   }
+  }
+  
+  return finalString.toString();
+  
+ }
+ 
 }
