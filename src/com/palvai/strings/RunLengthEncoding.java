@@ -43,14 +43,27 @@ public class RunLengthEncoding {
 		Pattern pattern = Pattern.compile("[0-9]+|[a-zA-Z]");
 		Matcher matcher = pattern.matcher(source);
 		while (matcher.find()) {
-			int num = Integer.parseInt(matcher.group());
-			matcher.find();
-			while (num-- != 0) {
+			try {
+				int num = Integer.parseInt(matcher.group());
+				matcher.find();
+				while (num-- != 0) {
+					finalString.append(matcher.group());
+				}
+			} catch (NumberFormatException ex) {
 				finalString.append(matcher.group());
 			}
 		}
-
 		return finalString.toString();
+	}
+
+	public static void main(String args[]) {
+
+		String input = "AABBCCDDEEFGH";
+		String encodedSingleString = RunLengthEncoding.encodeWithSingleCharacter(input);
+		String encodedString = RunLengthEncoding.encode(input);
+		System.out.println(encodedSingleString);
+		System.out.println(RunLengthEncoding.encode(input));
+		System.out.println("Decoded String" + RunLengthEncoding.decode(encodedString));
 
 	}
 
