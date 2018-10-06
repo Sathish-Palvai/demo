@@ -34,11 +34,11 @@ public class MergeIntervals {
 			return result;
 		}
 
-		// Case 4 and Case 5 
-	    // These two cases need to check whether 
-	    // intervals overlap or not. For this we 
-	    // can use a subroutine that will perform 
-	    // this function. 
+		// Case 4 and Case 5
+		// These two cases need to check whether
+		// intervals overlap or not. For this we
+		// can use a subroutine that will perform
+		// this function.
 		boolean overlap = true;
 		int size = intervals.size();
 		for (int i = 0; i < intervals.size(); i++) {
@@ -62,10 +62,10 @@ public class MergeIntervals {
 
 			}
 
-			// Case 5 : Merge Overlapping Intervals. 
-	        // Starting time of new merged interval is 
-	        // minimum of starting time of both 
-	        // overlapping intervals. 
+			// Case 5 : Merge Overlapping Intervals.
+			// Starting time of new merged interval is
+			// minimum of starting time of both
+			// overlapping intervals.
 			Interval temp = new Interval();
 			temp.setStart(Math.min(newInterval.getStart(), intervals.get(i).getStart()));
 
