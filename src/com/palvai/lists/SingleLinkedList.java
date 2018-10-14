@@ -3,9 +3,39 @@ package com.palvai.lists;
 public class SingleLinkedList {
 
 	private Node root;
+	private Node reverse;
 
 	public SingleLinkedList() {
 		this.root = null;
+	}
+
+	Node reverse() {
+		Node prev = null;
+		Node current = this.root;
+		Node next = null;
+		while (current != null) {
+			next = current.getNextNode();
+			current.setNextNode(prev);
+			prev = current;
+			current = next;
+		}
+		this.root = prev;
+		return this.root;
+	}
+
+	Node newReverseList() {
+
+		Node current = this.root;
+		Node prev = null;
+		while (current != null) {
+			reverse = new Node();
+			reverse.setValue(current.getValue());
+			reverse.setNextNode(prev);
+			prev = reverse;
+			current = current.getNextNode();
+		}
+		reverse = prev;
+		return this.reverse;
 	}
 
 	/**
@@ -199,6 +229,30 @@ public class SingleLinkedList {
 		return 0;
 	}
 
+	public Node rotateRight(Node A, int B) {
+
+		Node temp = A;
+		
+		int count = 1;
+		while (temp.getNextNode() != null) {
+			count++;
+			temp = temp.getNextNode();
+		}
+		int itr = count - B % count;
+
+		temp.setNextNode(A);
+		Node breakLink = A;
+		while (--itr > 0) {
+			breakLink = breakLink.getNextNode();
+		}
+
+		A = breakLink.getNextNode();
+		breakLink.setNextNode(null);
+
+		return A;
+
+	}
+
 	// Function that detects loop in the list
 	int detectAndRemoveLoop(Node node) {
 		Node slow = node, fast = node;
@@ -340,15 +394,133 @@ public class SingleLinkedList {
 
 	}
 
-	public static void main(String args[]) {
-		SingleLinkedList sl = new SingleLinkedList();
-		sl.insert(4);
-		sl.insert(5);
-		sl.insert(6);
-		sl.printList();
-		sl.deleteNode(5);
+	public void printReverseList() {
+		System.out.println("****Reversed Linked List Values ****");
+		Node temp = reverse;
+		while (temp != null) {
+			System.out.println(temp.getValue());
+			temp = temp.getNextNode();
+		}
 
-		sl.printList();
+	}
+
+	public Node reverseBetween(int B, int C) {
+
+		Node start = root;
+		Node prestart = null;
+		int count = 1;
+
+		// reach till startpoint
+		while (count < B) {
+			prestart = start;
+			start = start.getNextNode();
+			count++;
+		}
+
+		// start reversing
+		Node current = start;
+		Node prev = prestart;
+		Node next = prestart;
+
+		while (count <= C) {
+			next = current.getNextNode();
+			current.setNextNode(prev);
+			prev = current;
+			current = next;
+			count++;
+		}
+
+		System.out.println("Start " + start.getValue());
+		System.out.println("next " + next.getValue());
+		System.out.println("prev " + prev.getValue());
+		// System.out.println("prestart " + prestart.getValue());
+
+		// manage endpoint pointers and head
+		start.setNextNode(next);
+		if (prestart == null) {
+			root = prev;
+		} else {
+			prestart.setNextNode(prev);
+		}
+
+		return root;
+	}
+
+	public Node addTwoNumbers(Node A, Node B) {
+		int carry = 0;
+		Node res = null, temp = null, prev = null;
+		while (A != null || B != null) {
+			int sum = carry + (A != null ? A.getValue() : 0) + (B != null ? B.getValue() : 0);
+			if (sum >= 10) {
+				carry = 1;
+				sum = sum - 10;
+			} else {
+				carry = 0;
+			}
+
+			// Create a new node with sum as data
+			temp = new Node(sum);
+
+			// if this is the first node then set it as head of
+			// the resultant list
+			if (res == null) {
+				res = temp;
+			} else // If this is not the first node then connect it to the rest.
+			{
+				prev.setNextNode(temp);
+			}
+
+			// Set prev for next insertion
+			prev = temp;
+
+			A = (A != null) ? A.getNextNode() : A;
+			B = (B != null) ? B.getNextNode() : B;
+
+		}
+
+		if (carry > 0) {
+			temp.setNextNode(new Node(carry));
+		}
+		return res;
+	}
+
+	public Node detectCycle(Node a) {
+
+		Node slowPointer = root;
+		Node fastPointer = root;
+
+		while (slowPointer != null && fastPointer != null && fastPointer.getNextNode() != null) {
+			slowPointer = slowPointer.getNextNode();
+			fastPointer = fastPointer.getNextNode().getNextNode();
+			if (slowPointer == fastPointer) {
+				return slowPointer;
+			}
+		}
+
+		return null;
+	}
+
+	public static void main(String args[]) {
+
+		// sl.insert(4);
+		// sl.insert(5);
+		// sl.insert(6);
+		// sl.printList();
+		// sl.deleteNode(5);
+
+		// sl.printList();
+
+		// sl.reverse();
+
+		// sl.printList();
+
+		// sl.newReverseList();
+
+		// sl.printReverseList();
+
+		// sl.printList();
+
+		// sl.printReverseList();
 	}
 
 }
