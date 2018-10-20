@@ -1,4 +1,4 @@
-package com.palvai.strings.compression;
+package com.palvai.compression;
 
 import java.util.ArrayList;
 import java.util.HashMap;

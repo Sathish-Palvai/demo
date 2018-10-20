@@ -1,6 +1,6 @@
 package com.palvai.lists;
 
-public class CircularLinkedList {
+public class CircularLinkedList2 {
 
 	public int listSize = 0;
 	public CircularNode headNode = null;
@@ -101,7 +101,7 @@ public class CircularLinkedList {
 	}
 
 	public static void main(String[] args) {
-		CircularLinkedList c = new CircularLinkedList();
+		CircularLinkedList2 c = new CircularLinkedList2();
 		c.insertAtHead(1);
 		c.insertAtEnd(2);
 		c.insertAtEnd(3);
@@ -114,13 +114,4 @@ public class CircularLinkedList {
 		System.out.println("Element at 2nd position: " + c.elementAt(6));
 	}
 
-}
-
-class CircularNode {
-	int data;
-	CircularNode nextNode;
-
-	public CircularNode(int data) {
-		this.data = data;
-	}
 }
