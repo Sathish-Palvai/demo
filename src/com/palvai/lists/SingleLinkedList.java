@@ -232,7 +232,7 @@ public class SingleLinkedList {
 	public Node rotateRight(Node A, int B) {
 
 		Node temp = A;
-		
+
 		int count = 1;
 		while (temp.getNextNode() != null) {
 			count++;
@@ -498,6 +498,40 @@ public class SingleLinkedList {
 		}
 
 		return null;
+	}
+
+	/**
+	 * This is the method to find middle node in a linked list
+	 * 
+	 * @return
+	 */
+	public Node getMiddleNode() {
+
+		Node fastPointer = this.root;
+		Node slowPointer = this.root;
+
+		while (fastPointer.getNextNode() != null && fastPointer.getNextNode().getNextNode() != null) {
+			fastPointer = fastPointer.getNextNode().getNextNode();
+			slowPointer = slowPointer.getNextNode();
+		}
+
+		return slowPointer;
+	}
+
+	public void reverseInPlace() {
+
+		Node currentNode = this.root;
+		Node previousNode = null;
+		Node nextNode = null;
+
+		while (currentNode != null) {
+			nextNode = currentNode.getNextNode();
+			currentNode.setNextNode(previousNode);
+			previousNode = currentNode;
+			currentNode = nextNode;
+		}
+
+		this.root = previousNode;
 	}
 
 	public static void main(String args[]) {
