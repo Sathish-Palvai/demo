@@ -1,20 +1,12 @@
-package com.palvai.search;
+package com.palvai.stack;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
-public class QuickSelect {
+public class MaxElement {
 
 	private int[] nums;
-
-	public QuickSelect(int[] nums) {
-		this.nums = nums;
-	}
-
-	public void showArray() {
-		for (int i = 0; i < nums.length; ++i) {
-			System.out.print(nums[i] + "  ");
-		}
-	}
 
 	private int partition(int low, int high) {
 
@@ -58,14 +50,31 @@ public class QuickSelect {
 		}
 	}
 
-	public static void main(String args[]) {
-		int a[] = { 23, 45, 21, 55, 22, 56, 76, 89, 33 };
+	public ArrayList<Integer> slidingMaximum(final List<Integer> A, int B) {
+		int listSize = A.size();
+		ArrayList<Integer> ret = new ArrayList<Integer>();
+		Integer[] array = A.toArray(new Integer[listSize]);
+		int[] temp = new int[listSize];
 
-		// 21 22 23 33 45 55
-		QuickSelect obj = new QuickSelect(a);
-		System.out.println("4 th largest element " + obj.select(0, 8, 0));
-		Arrays.sort(a);
-		System.out.println(Arrays.toString(a));
+		this.nums = temp;
+
+		if (B > listSize) {
+			ret.add(this.select(0, listSize - 1, listSize - 1));
+			return ret;
+		}
+
+		for (int i = 0; i < listSize - B + 1; i++) {
+			for (int j = 0; j < array.length; j++) {
+				temp[j] = array[j];
+			}
+			ret.add(this.select(0 + i, B + i - 1, B + i - 1));
+		}
+		return ret;
+	}
+
+	public static void main(String args[]) {
+		MaxElement obj = new MaxElement();
+		System.out.println(obj.slidingMaximum(Arrays.asList(10, 9, 8, 7, 6, 5, 4, 3, 2, 1), 2));
 	}
 
 }

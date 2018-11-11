@@ -1,0 +1,131 @@
+package com.palvai.backtrack;
+
+public class FourQueens2 {
+	final int N = 4;
+	private int board[][] = { { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 } };;
+	private static int count = 0;
+
+	public FourQueens2() {
+
+		// Solution 1: 2 4 1 3
+		// Solution 2: 3 1 4 2
+	}
+
+	/* A utility function to print solution */
+	void printSolution() {
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < N; j++)
+				System.out.print(" " + board[i][j] + " ");
+			System.out.println();
+		}
+	}
+
+	/*
+	 * A utility function to check if a queen can be placed on board[row][col]. Note
+	 * that this function is called when "col" queens are already placeed in columns
+	 * from 0 to col -1. So we need to check only left side for attacking queens
+	 */
+	boolean isValidMove(int row, int col) {
+		int i, j;
+		
+		/* Check this row on left side */
+		for (i = 0; i < col; i++)
+			if (board[row][i] == 1) {
+			//	System.out.println("is Valid Move false 1 " + row + " , " + col);
+				return false;
+			}
+
+		/* Check upper diagonal on left side */
+		for (i = row, j = col; i >= 0 && j >= 0; i--, j--)
+			if (board[i][j] == 1){
+				//System.out.println("is Valid Move false 2 " + row + " , " + col);
+				return false;
+			}
+
+		/* Check lower diagonal on left side */
+		for (i = row, j = col; j >= 0 && i < N; i++, j--)
+			if (board[i][j] == 1){
+				//System.out.println("is Valid Move false 3 " + row + " , " + col);
+				return false;
+			}
+		
+		//System.out.println("is Valid Move true " + row + " , " + col);
+
+
+		return true;
+	}
+
+	/*
+	 * A recursive utility function to solve N Queen problem
+	 */
+	boolean solveNQUtil(int col) {
+		count++;
+		/*
+		 * base case: If all queens are placed then return true
+		 */
+		if (col >= N)
+			return true;
+
+		/*
+		 * Consider this column and try placing this queen in all rows one by one
+		 */
+		for (int i = 0; i < N; i++) {
+			/*
+			 * Check if the queen can be placed on board[i][col]
+			 */
+			//System.out.println("i = " + i);
+			//System.out.println("Col = " + col);
+			if (isValidMove(i, col)) {
+
+				/* Place this queen in board[i][col] */
+				board[i][col] = 1;
+			
+				/* recur to place rest of the queens */
+				if (solveNQUtil(col + 1) == true) {
+
+					return true;
+				}
+
+				/*
+				 * If placing queen in board[i][col] doesn't lead to a solution then remove
+				 * queen from board[i][col]
+				 */
+				board[i][col] = 0; // BACKTRACK
+				
+			}
+		}
+
+		/*
+		 * If the queen can not be placed in any row in this colum col, then return
+		 * false
+		 */
+		return false;
+	}
+
+	/*
+	 * This function solves the N Queen problem using Backtracking. It mainly uses
+	 * solveNQUtil () to solve the problem. It returns false if queens cannot be
+	 * placed, otherwise, return true and prints placement of queens in the form of
+	 * 1s. Please note that there may be more than one solutions, this function
+	 * prints one of the feasible solutions.
+	 */
+	boolean solveNQ() {
+
+		if (solveNQUtil(0) == false) {
+			System.out.print("Solution does not exist");
+			return false;
+		}
+
+		printSolution();
+		return true;
+	}
+
+	// driver program to test above function
+	public static void main(String args[]) {
+		FourQueens2 Queen = new FourQueens2();
+		
+		Queen.solveNQ();
+		
+		System.out.println(count);
+	}
+}

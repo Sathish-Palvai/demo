@@ -51,6 +51,8 @@ public class Test {
 			BufferedInputStream in = new BufferedInputStream(new FileInputStream(file));
 			while (in.read(dataBuffer, 0, len) != -1)
 				;
+			
+			in.close();
 
 		} catch (IOException e) {
 			// handle exception

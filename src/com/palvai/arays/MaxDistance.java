@@ -1,7 +1,5 @@
 package com.palvai.arays;
 
-import java.util.Arrays;
-
 public class MaxDistance {
 
 	int maxIndexDiff(int arr[], int n) {
