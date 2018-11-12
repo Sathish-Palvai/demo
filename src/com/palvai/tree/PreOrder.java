@@ -1,5 +1,6 @@
 package com.palvai.tree;
 
+import java.util.ArrayList;
 import java.util.Stack;
 
 /**
@@ -27,30 +28,28 @@ public class PreOrder {
 	}
 
 	// An iterative process to print preorder traversal of Binary tree
-	void iterativePreorder(TreeNode node) {
+	public ArrayList<Integer> preorderTraversal(TreeNode A) {
 
-		if (node == null) {
-			return;
+		ArrayList<Integer> returnList = new ArrayList<Integer>();
+		if (A == null) {
+			return returnList;
 		}
+		Stack<TreeNode> stack = new Stack<TreeNode>();
+		stack.push(A);
+		while (!stack.isEmpty()) {
+			TreeNode curr = stack.peek();
+			returnList.add(curr.val);
+			stack.pop();
 
-		Stack<TreeNode> nodeStack = new Stack<TreeNode>();
-		nodeStack.push(node);
-
-		while (nodeStack.empty() == false) {
-
-			// Pop the top item from stack and print it
-			TreeNode mynode = nodeStack.peek();
-			System.out.print(mynode.val + " ");
-			nodeStack.pop();
-
-			// Push right and left children of the popped node to stack
-			if (mynode.right != null) {
-				nodeStack.push(mynode.right);
+			if (curr.right != null) {
+				stack.push(curr.right);
 			}
-			if (mynode.left != null) {
-				nodeStack.push(mynode.left);
+			if (curr.left != null) {
+				stack.push(curr.left);
 			}
 		}
+
+		return returnList;
 	}
 
 }
